@@ -2,6 +2,15 @@
 
 Um App para gerenciar suas tarefas e gameficar 
 
+<div align="center">
+
+
+https://user-images.githubusercontent.com/86570695/198080289-2ed942be-d675-44ec-b61d-da0c5185383a.mp4
+
+
+</div>
+
+
 ## Funcionalidades
 
 Adiciona, deleta e reseta uma tarefa.
@@ -11,4 +20,3 @@ Você pode upar o nível da sua tarefa e quando chegar seu nível máximo, se ai
 
 Função de esconder tarefas.
 
-- [Video demonstrando as funções](https://docs.flutter.dev/get-started/codelab)
