@@ -4,15 +4,15 @@ import '../components/task.dart';
 import '../data/task_dao.dart';
 import 'form_screen.dart';
 
-class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
 
   @override
-  State<Dashboard> createState() => _DashboardState();
+  State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardState extends State<Dashboard> {
-  bool opacidade = true;
+class _DashboardScreenState extends State<DashboardScreen> {
+  bool opacity = true;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class _DashboardState extends State<Dashboard> {
             child: InkWell(
                 onTap: () {
                   setState(() {
-                    opacidade = !opacidade;
+                    opacity = !opacity;
                   });
                 },
                 child: const SizedBox(
@@ -42,7 +42,7 @@ class _DashboardState extends State<Dashboard> {
         ),
       ),
       body: AnimatedOpacity(
-        opacity: opacidade ? 1 : 0,
+        opacity: opacity ? 1 : 0,
         duration: const Duration(milliseconds: 400),
         child: Container(
           color: Colors.black12,
@@ -64,9 +64,9 @@ class _DashboardState extends State<Dashboard> {
                       return ListView.builder(
                         itemCount: items.length,
                         itemBuilder: (BuildContext context, int index) {
-                          final Task tarefas = items[index];
+                          final Task tasks = items[index];
                           return Dismissible(
-                            key: ValueKey<Task>(tarefas),
+                            key: ValueKey<Task>(tasks),
                             direction: DismissDirection.startToEnd,
                             onDismissed: (direction) {
                               setState(() {});
@@ -83,17 +83,17 @@ class _DashboardState extends State<Dashboard> {
                                       ElevatedButton(
                                           onPressed: () {
                                             Navigator.of(context).pop(true);
-                                            TaskDao().delete(tarefas.nome);
+                                            TaskDao().delete(tasks.name);
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(SnackBar(
                                                     content: Text(
-                                                        '${tarefas.nome} apagada')));
+                                                        '${tasks.name} apagada')));
                                           },
                                           child: const Text("Deletar")),
                                       ElevatedButton(
                                         onPressed: () {
-
-                                            Navigator.of(context).pop(false);},
+                                          Navigator.of(context).pop(false);
+                                        },
                                         child: const Text("Cancelar"),
                                       ),
                                     ],
@@ -111,7 +111,7 @@ class _DashboardState extends State<Dashboard> {
                                 ),
                               ),
                             ),
-                            child: Container(child: tarefas),
+                            child: Container(child: tasks),
                           );
                         },
                       );
@@ -147,9 +147,7 @@ class _DashboardState extends State<Dashboard> {
             ),
           ).then(
             (value) => setState(
-              () {
-                print('Recarregando a tela inicial');
-              },
+              () {},
             ),
           );
         },
@@ -157,8 +155,3 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 }
-
-
-
-
-

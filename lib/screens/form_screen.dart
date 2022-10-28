@@ -13,8 +13,8 @@ class FormScreen extends StatefulWidget {
 
 class _FormScreenState extends State<FormScreen> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController prioridadeController = TextEditingController();
-  TextEditingController imagemController = TextEditingController();
+  TextEditingController priorityController = TextEditingController();
+  TextEditingController imageController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final String noPhoto = 'assets/images/nophoto.webp';
 
@@ -79,7 +79,7 @@ class _FormScreenState extends State<FormScreen> {
                         }
                         return null;
                       },
-                      controller: prioridadeController,
+                      controller: priorityController,
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
@@ -102,7 +102,7 @@ class _FormScreenState extends State<FormScreen> {
                         return null;
                       },
                       keyboardType: TextInputType.url,
-                      controller: imagemController,
+                      controller: imageController,
                       onChanged: (text) {
                         setState(() {});
                       },
@@ -129,7 +129,7 @@ class _FormScreenState extends State<FormScreen> {
                     child: ClipRRect(
                       child: Image.network(
                         fit: BoxFit.cover,
-                        imagemController.text,
+                        imageController.text,
                         errorBuilder: (BuildContext context, Object exception,
                             StackTrace? stackTrace) {
                           return Image.asset(
@@ -145,13 +145,12 @@ class _FormScreenState extends State<FormScreen> {
                     child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            final int idCorreto =
-                            await TaskDao().pegarTamanhoDB();
+                            final int correctID = await TaskDao().getLengthDB();
                             await TaskDao().save(Task(
-                              idCorreto,
+                              correctID,
                               nameController.text,
-                              int.parse(prioridadeController.text),
-                              imagemController.text,
+                              int.parse(priorityController.text),
+                              imageController.text,
                             ));
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -159,7 +158,6 @@ class _FormScreenState extends State<FormScreen> {
                               ),
                             );
                             Navigator.pop(context);
-
                           }
                         },
                         child: const Text('Adicionar')),

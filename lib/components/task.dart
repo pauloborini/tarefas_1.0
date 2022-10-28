@@ -1,17 +1,15 @@
-
 import 'package:flutter/material.dart';
 import '../data/task_dao.dart';
-import 'estrelas_prioridades.dart';
+import 'star_priority.dart';
 
 class Task extends StatefulWidget {
   final int id;
-  final String nome;
-  final int prioridade;
+  final String name;
+  final int priority;
   final String image;
-  int nivel;
+  int lvl;
 
-  Task(this.id, this.nome, this.prioridade, this.image,
-      [this.nivel = 0, Key? key]);
+  Task(this.id, this.name, this.priority, this.image, [this.lvl = 0, Key? key]);
 
   @override
   State<Task> createState() => _TaskState();
@@ -73,7 +71,7 @@ class _TaskState extends State<Task> {
                       children: [
                         SizedBox(
                           width: 200,
-                          child: Text(widget.nome,
+                          child: Text(widget.name,
                               style: const TextStyle(
                                   color: Colors.deepPurple,
                                   fontSize: 24,
@@ -81,7 +79,7 @@ class _TaskState extends State<Task> {
                         ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                          child: Prioridade(widget.prioridade),
+                          child: Priority(widget.priority),
                         )
                       ],
                     ),
@@ -91,22 +89,22 @@ class _TaskState extends State<Task> {
                         width: 52,
                         height: 52,
                         child: ElevatedButton(
-                          onLongPress: (){
-                            widget.nivel = 0;
+                          onLongPress: () {
+                            widget.lvl = 0;
                             setState(() {
                               TaskDao().save(
-                                Task(widget.id, widget.nome, widget.prioridade,
-                                    widget.image, widget.nivel),
+                                Task(widget.id, widget.name, widget.priority,
+                                    widget.image, widget.lvl),
                               );
                             });
                           },
                           onPressed: () {
                             setState(() {
-                              widget.nivel++;
+                              widget.lvl++;
                             });
                             TaskDao().save(
-                              Task(widget.id, widget.nome, widget.prioridade,
-                                  widget.image, widget.nivel),
+                              Task(widget.id, widget.name, widget.priority,
+                                  widget.image, widget.lvl),
                             );
                           },
                           child: Column(
@@ -138,7 +136,7 @@ class _TaskState extends State<Task> {
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
                         child: LinearProgressIndicator(
-                          value: widget.nivel / 50,
+                          value: widget.lvl / 50,
                           color: Colors.white,
                         ),
                       ),
@@ -146,7 +144,7 @@ class _TaskState extends State<Task> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
                       child: Text(
-                        'Nivel: ${widget.nivel}',
+                        'Nivel: ${widget.lvl}',
                         style:
                             const TextStyle(fontSize: 16, color: Colors.white),
                       ),

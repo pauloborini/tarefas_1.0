@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CircularProgress extends StatelessWidget {
-
   final String message;
-
 
   const CircularProgress(this.message, {super.key});
 
@@ -17,7 +15,10 @@ class CircularProgress extends StatelessWidget {
           const CircularProgressIndicator(),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
-            child: Text(message, style: const TextStyle(fontSize: 20),),
+            child: Text(
+              message,
+              style: const TextStyle(fontSize: 20),
+            ),
           ),
         ],
       ),
