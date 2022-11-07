@@ -9,13 +9,19 @@ class Task extends StatefulWidget {
   final String image;
   int lvl;
 
-  Task(this.id, this.name, this.priority, this.image, [this.lvl = 0, Key? key]);
+  Task(this.id, this.name, this.priority, this.image, [this.lvl = 0]);
+
 
   @override
   State<Task> createState() => _TaskState();
 }
 
 class _TaskState extends State<Task> {
+
+  final Color stanColor = const Color.fromARGB(255, 245, 244, 240);
+  final Color purple = const Color.fromARGB(255, 127, 89, 206);
+  final Color orange = const Color.fromARGB(255, 253, 156, 115);
+
   bool assetOrNetwork() {
     if (widget.image.contains('http')) {
       return false;
@@ -26,15 +32,15 @@ class _TaskState extends State<Task> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
       child: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
-              color: const Color(0x9D160354),
+              color: purple,
               borderRadius: BorderRadius.circular(24),
             ),
-            height: 140,
+            height: 100,
           ),
           Column(
             children: [
@@ -43,7 +49,7 @@ class _TaskState extends State<Task> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(24),
                 ),
-                height: 100,
+                height: 80,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -52,7 +58,7 @@ class _TaskState extends State<Task> {
                           color: Colors.black26,
                           borderRadius: BorderRadius.circular(24)),
                       width: 80,
-                      height: 100,
+                      height: 80,
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(24),
                           child: assetOrNetwork()
@@ -72,10 +78,10 @@ class _TaskState extends State<Task> {
                         SizedBox(
                           width: 200,
                           child: Text(widget.name,
-                              style: const TextStyle(
-                                  color: Colors.deepPurple,
-                                  fontSize: 24,
-                                  overflow: TextOverflow.ellipsis)),
+                              style:  TextStyle(
+                                  color: purple,
+                                  fontSize: 20,
+                                  overflow: TextOverflow.ellipsis, fontWeight: FontWeight.bold)),
                         ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -107,18 +113,20 @@ class _TaskState extends State<Task> {
                                   widget.image, widget.lvl),
                             );
                           },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: const [
-                              Icon(Icons.arrow_drop_up),
-                              Text(
-                                'UP',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.deepPurple,
-                                ),
-                              )
-                            ],
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Icon(Icons.arrow_drop_up),
+                                Text(
+                                  'UP',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.deepPurple,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -127,16 +135,17 @@ class _TaskState extends State<Task> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.fromLTRB(12, 0, 12, 4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
                       width: 200,
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
+                        padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                         child: LinearProgressIndicator(
                           value: widget.lvl / 50,
+                          backgroundColor: Colors.purple[200],
                           color: Colors.white,
                         ),
                       ),
@@ -146,7 +155,7 @@ class _TaskState extends State<Task> {
                       child: Text(
                         'Nivel: ${widget.lvl}',
                         style:
-                            const TextStyle(fontSize: 16, color: Colors.white),
+                            const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],

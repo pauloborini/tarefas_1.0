@@ -42,6 +42,7 @@ class TaskDao {
     }
   }
 
+
   Future<List<Task>> findAll() async {
     final Database dataBaseLocal = await getDatabase();
     final List<Map<String, dynamic>> result =
