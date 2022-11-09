@@ -28,68 +28,71 @@ class _DashboardScreenState extends State<DashboardScreen> {
           statusBarColor: Colors.transparent, //top bar color
         ),
         centerTitle: true,
-        toolbarHeight: 150,
+        toolbarHeight: 170,
         backgroundColor: stanColor,
         elevation: 0,
-        title: Column(
-          children: [
-            Stack(children: [
-              Container(
-                alignment: Alignment.topRight,
-                width: double.infinity,
-                child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        opacity = !opacity;
-                      });
-                    },
-                    child: SizedBox(
-                        width: 50,
-                        child: Icon(Icons.remove_red_eye, color: purple))),
-              ),
-              const Center(
-                child: Text(
-                  'Olá!',
-                  style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold),
+        title: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+          child: Column(
+            children: [
+              Stack(children: [
+                Container(
+                  alignment: Alignment.topRight,
+                  width: double.infinity,
+                  child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          opacity = !opacity;
+                        });
+                      },
+                      child: SizedBox(
+                          width: 50,
+                          child: Icon(Icons.remove_red_eye, color: purple))),
                 ),
-              ),
-            ]),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: Container(
-                width: double.infinity,
-                height: 60,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24), color: orange),
-                child: Center(
+                const Center(
                   child: Text(
-                      'Tenha um ótimo ' +
-                          DateFormat('d MMM y').format(DateTime.now()) +
-                          '!',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Rubik',
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold)),
+                    'Olá!',
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ]),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Container(
+                  width: double.infinity,
+                  height: 60,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24), color: orange),
+                  child: Center(
+                    child: Text(
+                        'Tenha um ótimo ' +
+                            DateFormat('d MMM y').format(DateTime.now()) +
+                            '!',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Rubik',
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold)),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Container(
-                width: double.infinity,
-                alignment: Alignment.centerLeft,
-                child: const Text(
-                  'Suas Tarefas',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: Container(
+                  width: double.infinity,
+                  alignment: Alignment.centerLeft,
+                  child: const Text(
+                    'Suas Tarefas',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       body: AnimatedOpacity(
