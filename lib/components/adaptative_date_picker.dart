@@ -28,7 +28,7 @@ class AdaptativeDatePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Platform.isIOS
-        ? Container(
+        ? SizedBox(
             height: 180,
             child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
@@ -45,17 +45,16 @@ class AdaptativeDatePicker extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                      selectedDate == null
-                          ? 'Sem data selecionada'
-                          : DateFormat('dd/MM/y').format(selectedDate),
-                      style: (const TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+                  child: Text(DateFormat('dd/MM/y').format(selectedDate),
+                      style: (const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold))),
                 ),
                 TextButton(
                   onPressed: () => _showDatePicker(context),
                   child: const Text(
                     'Selecionar data',
-                    style: (TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    style:
+                        (TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],

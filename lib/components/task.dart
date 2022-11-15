@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../data/task_dao.dart';
 import 'star_priority.dart';
+import 'utilities/colors_and_vars.dart';
 
 class Task extends StatefulWidget {
   final int? id;
@@ -18,18 +19,40 @@ class Task extends StatefulWidget {
       required this.priority,
       required this.date,
       required this.isCompleted,
-      this.lvl = 0});
+      required this.lvl});
 
   @override
   State<Task> createState() => _TaskState();
 }
 
 class _TaskState extends State<Task> {
-  final Color stanColor = const Color.fromARGB(255, 245, 244, 240);
-  final Color purple = const Color.fromARGB(255, 127, 89, 206);
-  final Color orange = const Color.fromARGB(255, 253, 156, 115);
+  bool showLvlButton = false;
 
+  getLvl() {
+    if (widget.lvl < 100) {
+      showLvlButton = true;
+    } else if (widget.lvl > 99) {
+      setState(() {
+        showLvlButton = false;
+      });
+    } else if (widget.lvl >= 100) {
+      setState(() {
+        showLvlButton = false;
+      });
+    }
+  }
 
+  @override
+  void initState() {
+    getLvl();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.lvl;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,19 +79,19 @@ class _TaskState extends State<Task> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(widget.name,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: purple,
                                   fontSize: 20,
                                   overflow: TextOverflow.ellipsis,
                                   fontWeight: FontWeight.bold)),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            padding: const EdgeInsets.fromLTRB(1, 5, 0, 0),
                             child: Text(DateFormat('EEE, dd/MM')
                                 .format(DateTime.parse(widget.date))),
                           )
@@ -77,49 +100,58 @@ class _TaskState extends State<Task> {
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
-                      child: SizedBox(
-                        width: 52,
-                        height: 52,
-                        child: ElevatedButton(
-                          onLongPress: () {
-                            widget.lvl = 0;
-                            setState(() {
+                      child: Visibility(
+                        visible: showLvlButton,
+                        child: SizedBox(
+                          width: 52,
+                          height: 52,
+                          child: ElevatedButton(
+                            onLongPress: () {
+                              setState(() {
+                                TaskDao().save(
+                                  Task(
+                                    name: widget.name,
+                                    priority: widget.priority,
+                                    date: widget.date,
+                                    isCompleted: 0,
+                                    lvl: 0,
+                                  ),
+                                );
+                              });
+                            },
+                            onPressed: () {
+                              setState(() {
+                                if (widget.lvl < 100) {
+                                  widget.lvl++;
+                                  getLvl();
+                                } else if (widget.lvl >= 100) {
+                                  return;
+                                }
+                              });
                               TaskDao().save(
                                 Task(
                                   name: widget.name,
                                   priority: widget.priority,
                                   date: widget.date,
                                   isCompleted: 0,
+                                  lvl: widget.lvl,
                                 ),
                               );
-                            });
-                          },
-                          onPressed: () {
-                            setState(() {
-                              widget.lvl++;
-                            });
-                            TaskDao().save(
-                              Task(
-                                name: widget.name,
-                                priority: widget.priority,
-                                date: widget.date,
-                                isCompleted: 0,
+                            },
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(Icons.arrow_drop_up),
+                                  Text(
+                                    'UP',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.deepPurple,
+                                    ),
+                                  )
+                                ],
                               ),
-                            );
-                          },
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(Icons.arrow_drop_up),
-                                Text(
-                                  'UP',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.deepPurple,
-                                  ),
-                                )
-                              ],
                             ),
                           ),
                         ),
@@ -133,11 +165,13 @@ class _TaskState extends State<Task> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                     SizedBox(
+                    SizedBox(
                       width: 200,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                        child: Priority(priority: widget.priority,),
+                        child: Priority(
+                          priority: widget.priority,
+                        ),
                       ),
                     ),
                     Padding(

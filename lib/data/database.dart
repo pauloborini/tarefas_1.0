@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-
 import 'task_dao.dart';
 
 Future<Database> getDatabase() async {

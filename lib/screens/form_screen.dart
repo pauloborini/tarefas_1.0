@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tarefas_game/components/adaptative_date_picker.dart';
 import '../components/task.dart';
+import '../components/utilities/colors_and_vars.dart';
 import '../data/task_dao.dart';
 
 class FormScreen extends StatefulWidget {
@@ -19,11 +20,6 @@ class _FormScreenState extends State<FormScreen> {
   TextEditingController imageController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   DateTime _selectedDate = DateTime.now();
-  final String noPhoto = 'assets/images/nophoto.webp';
-  final Color stanColor = const Color.fromARGB(255, 245, 244, 240);
-  final Color purple = const Color.fromARGB(255, 127, 89, 206);
-  final Color orange = const Color.fromARGB(255, 245, 187, 167);
-  final Color fontColor = Colors.black87;
 
   bool valueValidator(String? value) {
     if (value != null && value.isEmpty) {
@@ -52,9 +48,7 @@ class _FormScreenState extends State<FormScreen> {
           title: const Text(
             'Nova Tarefa',
             style: TextStyle(
-                color: Colors.black87,
-                fontSize: 26,
-                fontWeight: FontWeight.bold),
+                color: fontColor, fontSize: 26, fontWeight: FontWeight.bold),
           ),
         ),
         body: Center(
@@ -85,7 +79,7 @@ class _FormScreenState extends State<FormScreen> {
                             padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
                             child: Text('Nome da Tarefa'),
                           ),
-                          fillColor: orange,
+                          fillColor: tabColorOrange,
                           border: OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(24)),
@@ -110,7 +104,7 @@ class _FormScreenState extends State<FormScreen> {
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
-                          fillColor: orange,
+                          fillColor: tabColorOrange,
                           border: OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(24)),
@@ -143,7 +137,7 @@ class _FormScreenState extends State<FormScreen> {
                               lvl: 0,
                             ));
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              SnackBar(duration: const Duration(seconds: 2),
                                 content: Text('${nameController.text} Criado'),
                               ),
                             );
