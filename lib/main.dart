@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tarefas_game/components/utilities/colors_and_vars.dart';
+
 import '../screens/base_screen.dart';
 import 'components/utilities/functions.dart';
 import 'screens/completed_screen.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
             type: BottomNavigationBarType.shifting,
             selectedItemColor: fontColor),
         appBarTheme: const AppBarTheme(
-           scrolledUnderElevation: 0,
+            scrolledUnderElevation: 0,
             systemOverlayStyle:
                 SystemUiOverlayStyle(statusBarColor: Colors.transparent)),
         fontFamily: 'PTSans',
@@ -41,11 +42,14 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/initial_screen",
       routes: {
-        "/initial_screen": (context) =>   InitialScreen(),
-        "/list_screen": (context) =>   ListScreen(),
-        "/form_screen": (context) => FormScreen(taskContext: context,),
-        "/completed_screen": (context) =>   CompletedScreen(),
+        "/initial_screen": (context) => InitialScreen(),
+        "/list_screen": (context) => ListScreen(),
+        "/form_screen": (context) => FormScreen(
+              taskContext: context,
+            ),
+        "/completed_screen": (context) => CompletedScreen(),
       },
+      debugShowCheckedModeBanner: false,
     );
   }
 }

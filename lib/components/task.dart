@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import '../data/task_dao.dart';
 import 'star_priority.dart';
 import 'utilities/colors_and_vars.dart';
@@ -106,19 +107,19 @@ class _TaskState extends State<Task> {
                           width: 52,
                           height: 52,
                           child: ElevatedButton(
-                            onLongPress: () {
-                              setState(() {
-                                TaskDao().save(
-                                  Task(
-                                    name: widget.name,
-                                    priority: widget.priority,
-                                    date: widget.date,
-                                    isCompleted: 0,
-                                    lvl: 0,
-                                  ),
-                                );
-                              });
-                            },
+                            // onLongPress: () {
+                            //   setState(() {
+                            //     TaskDao().save(
+                            //       Task(
+                            //         name: widget.name,
+                            //         priority: widget.priority,
+                            //         date: widget.date,
+                            //         isCompleted: 0,
+                            //         lvl: 0,
+                            //       ),
+                            //     );
+                            //   });
+                            // },
                             onPressed: () {
                               setState(() {
                                 if (widget.lvl < 100) {
